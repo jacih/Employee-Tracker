@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const { CLIENT_SECURE_CONNECTION } = require('mysql/lib/protocol/constants/client');
 const consoleTable = require('console.table');
 
 const connection = mysql.createConnection(
