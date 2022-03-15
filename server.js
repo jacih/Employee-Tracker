@@ -104,7 +104,7 @@ const viewDepartments = () => {
 }
 
 const viewEmployees = () => {
-  const query = 'SELECT employee.id AS "ID", CONCAT (employee.first_name, " ", employee.last_name) AS "Name", department.name AS "Department", employee_role.title AS "Job Title", employee_role.salary AS "Salary($USD)", CONCAT(manager.first_name, " ", manager.last_name), AS "Manager" FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN departemnt ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager_id;';
+  const query = 'SELECT employee.id AS "ID", CONCAT (employee.first_name, " ", employee.last_name) AS "Name", department.dept_name AS "Department", employee.role_title AS "Job Title", employee.role_salary AS "Salary($USD)", CONCAT(manager.first_name, " ", manager.last_name), AS "Manager" FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager_id;';
   connection.query(query, function(err, res) {
     if (err) {
       console.error(err);
