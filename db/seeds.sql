@@ -1,10 +1,10 @@
 -- departments
-INSERT INTO department (name) VALUES ('Strategy');
-INSERT INTO department (name) VALUES ('Marketing');
-INSERT INTO department (name) VALUES ('Finance');
-INSERT INTO department (name) VALUES ('Human Resources');
-INSERT INTO department (name) VALUES ('Technology');
-INSERT INTO department (name) VALUES ('Operations'); 
+INSERT INTO department (dept_name) VALUES ('Strategy');
+INSERT INTO department (dept_name) VALUES ('Marketing');
+INSERT INTO department (dept_name) VALUES ('Finance');
+INSERT INTO department (dept_name) VALUES ('Human Resources');
+INSERT INTO department (dept_name) VALUES ('Technology');
+INSERT INTO department (dept_name) VALUES ('Operations'); 
 
 -- roles
 INSERT INTO role (title, salary, department_id) VALUES ('Chief Strategist', 125000, 1);
@@ -33,29 +33,29 @@ INSERT INTO role (title, salary, department_id) VALUES ('Chief Operating Officer
 INSERT INTO role (title, salary, department_id) VALUES ('Operations Manager', 130000, 6);
 INSERT INTO role (title, salary, department_id) VALUES ('I.T. Manager ', 90000, 6);
 
--- employee
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Bill', 'Pastor', 1, 17);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Phil', 'Smith', 2, 1);
+-- -- employee
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Bill', 'Pastor', 1, 17);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Phil', 'Smith', 2, 1);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Claire', 'Loke', 3, 17);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Dharma', 'Ravindra', 4, 17);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Letif', 'Appius', 5, 3);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Belle', 'Florentine', 6, 3);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Agnesa', 'Teuta', 7, 3);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Claire', 'Loke', 3, 17);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Dharma', 'Ravindra', 4, 17);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Letif', 'Appius', 5, 3);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Belle', 'Florentine', 6, 3);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Agnesa', 'Teuta', 7, 3);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Yoshirou', 'Haruki', 8, 18);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Nadejda', 'Baal', 9, 8);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Yoshirou', 'Haruki', 8, 18);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Nadejda', 'Baal', 9, 8);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Greta', 'Sunburg', 10, 18);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Jill', 'Goodall', 11, 10);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Greta', 'Sunburg', 10, 18);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Jill', 'Goodall', 11, 10);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Murugan', 'Oluwasegun', 12, 17);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Noe', 'Gunter', 13, 12);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Max', 'Adams', 14, 12);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Plácida', 'Mumtaz', 15, 12);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Liam', 'Blanchard', 16, 12);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Murugan', 'Oluwasegun', 12, 17);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Noe', 'Gunter', 13, 12);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Max', 'Adams', 14, 12);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Plácida', 'Mumtaz', 15, 12);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Liam', 'Blanchard', 16, 12);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Agatka', 'Thecla', 17, null);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Echo', 'Fumnanya', 18, null);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Nikhil', 'Serdar', 19, 18);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Catherine', 'Gaios', 20, 18);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Agatka', 'Thecla', 17, null);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Echo', 'Fumnanya', 18, null);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Nikhil', 'Serdar', 19, 18);
+INSERT INTO employee (first_name, last_name, title_id, manager_id) VALUES ('Catherine', 'Gaios', 20, 18);
