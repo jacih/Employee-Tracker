@@ -371,7 +371,7 @@ const deleteRole = () => {
       console.error(err);
     }
     const roles = res.map(({ title, id }) => ({ name: title, value: id }));
-    roles.push('[CANCEL');
+    roles.push('[CANCEL]');
     inquirer.prompt([
       {
         type: 'list',
