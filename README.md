@@ -18,6 +18,9 @@ The Employee Tracker command-line application is a simple content management sys
 
 ## [Mock-Up](#table-of-contents)
 
+![Add_Employee_Script_Code_Snippet](https://user-images.githubusercontent.com/97176042/158704846-8790ae18-9ed9-4d89-b686-ef61d3c1cf57.jpg)
+![Add_Employee+UpdateRole_CodeSnippet](https://user-images.githubusercontent.com/97176042/158704624-3d0de440-d419-4c18-9980-2b6874426eba.png)
+
 Video Walkthrough:
 - [GoogleDrive](https://drive.google.com/file/d/1-6DIujrVQmpfJLGPhpJV-_LCWLfdeWiu/view?usp=sharing)
 - [YouTube](https://youtu.be/KB4wt3mOxWk)
