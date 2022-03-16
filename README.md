@@ -18,6 +18,10 @@ The Employee Tracker command-line application is a simple content management sys
 
 ## [Mock-Up](#table-of-contents)
 
+Video Walkthrough:
+- [GoogleDrive](https://drive.google.com/file/d/1-6DIujrVQmpfJLGPhpJV-_LCWLfdeWiu/view?usp=sharing)
+- [YouTube](https://youtu.be/KB4wt3mOxWk)
+
 ## [Installation](#table-of-contents)
 npm i, ensuring npm i mySQL2 is included, run mySQL and input your personal password, source schema.sql and source seeds.sql to seed database prior to npm start to launch the inquirer prompts.
 
