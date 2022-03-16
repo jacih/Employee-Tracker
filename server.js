@@ -83,7 +83,6 @@ const renderEmployeeMenu = () => {
           break;
         case 'Update Employee Role':
           updateEmployeeRole();
-          //last one to debug!!!
           break;
         case 'Exit':
           console.log('Thank you for using the Employee Tracker Database');
@@ -286,7 +285,7 @@ const addRole = () => {
             }
           });
         });
-      });
+  });
 }
 
 const deleteDepartment = () => {
@@ -416,36 +415,46 @@ const deleteRole = () => {
     });
   });
 }
-//super buggy - needs refactor/fix
-// const updateEmployeeRole = () => {
-//   connection.query('SELECT first_name, last_name, id FROM employee', (err, res) => {
-//     employees = res.map(({ first_name, last_name, id }) => ({ name: `${first_name} ${last_name}`, value: id }));
-//     connection.query('SELECT title, id FROM role;', (err, res) => {
-//       roles = res.map(({ title, id }) => ({ name: title, value: id }));
-//       const response = inquirer.prompt([
-//         {
-//           type: 'list',
-//           message: 'Which employee\'s role would you like to update?',
-//           name: 'employee',
-//           choices: employees
-//         },
-//         {
-//           type: 'list',
-//           message: 'What is the employee\'s new role?',
-//           name: 'role',
-//           choices: roles
-//         },
-//       ]).then((response) => {
-//         connection.query(`UPDATE SET role_id = '${role_id = response.role.id}' WHERE id = '${response.employee.id}';`, (err, res) => {
-//           if (err) {
-//             console.error(err);
-//           } else {
-//           console.log(`The ${response.employee}\'s role has been updated to ${response.role}`);
-//           console.log('');
-//           viewEmployees();
-//           }
-//         });
-//       });
-//     });
-//   });
-// }
+
+const updateEmployeeRole = () => {
+  const query = 'SELECT * FROM employee;';
+  connection.query(query, (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    const employees = res.map(({ first_name, last_name, id }) => ({ name: first_name + ' ' + last_name, value: id }));
+    const query2 = 'SELECT * FROM role;';
+    connection.query(query2, (err, result) => {
+      if (err) {
+        console.error(err);
+      }
+      const roles = result.map(({ title, id }) => ({ name: title, value: id }));
+      inquirer.prompt([
+        {
+          type: 'list',
+          message: 'Which employee would you like to update?',
+          name: 'employee',
+          choices: employees
+        },
+        {
+          type: 'list',
+          message: `What is the employee's new role?`,
+          name: 'role',
+          choices: roles
+        }
+      ]).then((response) => {
+        const query = 'UPDATE employee SET ? WHERE ?? = ?;';
+        connection.query(query, [{ role_id: response.role}, 'id', response.employee], (err, res) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log('');
+            console.log('The employee\'s role has been updated!');
+            console.log('');
+            viewEmployees();
+          }
+        });
+      });
+    });
+  });
+}
