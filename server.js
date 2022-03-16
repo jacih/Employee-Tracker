@@ -175,7 +175,7 @@ const addDepartment = () => {
         console.error(err);
       } else {
         console.log('');
-        console.log(`The ${response.addDept} department has been added to your company`);
+        console.log('The department has been added to your company');
         console.log('');
         viewDepartments();
       }
@@ -279,7 +279,7 @@ const addRole = () => {
               console.error(err);
             } else {
               console.log('');
-              console.log(`The ${response.title} has been added to the ${response.department.dept_name}`);
+              console.log('The role has been added to the company database.');
               console.log('');
               viewRoles();
             }
@@ -311,14 +311,14 @@ const deleteDepartment = () => {
             console.error(err);
           } else {
             console.log('');
-            console.log(`The ${response.dept_name} has been deleted from your company's database`);
+            console.log('The department has been deleted from the company database.');
             console.log('');
             viewDepartments();
           }
         });
       } else {
         console.log('');
-        console.log('Did not delete any departments');
+        console.log('Did not delete any departments from the company\'s database.');
         console.log('');
         viewDepartments();
       }
@@ -337,7 +337,7 @@ const deleteEmployee = () => {
     inquirer.prompt([
       {
         type: 'list',
-        message: 'Which employee would you like to remove for your company\'s database?',
+        message: 'Which employee would you like to remove for the company\'s database?',
         name: 'leavingEmployee',
         choices: employees
       }
@@ -349,14 +349,14 @@ const deleteEmployee = () => {
             console.error(err);
           } else {
             console.log('');
-            console.log(`The ${response.leavingEmployee} has been deleted from the company database`);
+            console.log('The employee has been removed from the company database.');
             console.log('');
             viewEmployees();
           }
         });
       } else {
           console.log('');
-          console.log('Did not delete any employees from the database');
+          console.log('Did not remove any employees from the database.');
           console.log('');
           viewEmployees();
         }
@@ -375,7 +375,7 @@ const deleteRole = () => {
     inquirer.prompt([
       {
         type: 'list',
-        message: 'Which role would you like to delete from your company\'s database?',
+        message: 'Which role would you like to femove from your company\'s database?',
         name: "role",
         choices: roles
       }
@@ -387,7 +387,7 @@ const deleteRole = () => {
             console.error(err);
           } else {
             console.log('');
-            console.log(`The ${response.role} has been deleted from the company database.`);
+            console.log(`The role has been removed from the company database.`);
             console.log('Please update any employee who previously held this position.');
             console.log('');
           }
@@ -399,7 +399,7 @@ const deleteRole = () => {
           } else {
             console.log('********** EMPLOYEES MISSING A ROLE **********');
             console.log('');
-            console.log(`There are ${res.length} employee(s) without a role in the company.`);
+            console.log(`There are ${res.length} employee(s) without a role in the company database.`);
             console.log('');
             console.table(res);
             console.log('');
@@ -408,7 +408,7 @@ const deleteRole = () => {
         });
       } else {
         console.log('');
-        console.log('Did not delete any roles from the database');
+        console.log('Did not delete any roles from the company\'s database.');
         console.log('');
         viewRoles();
       }
@@ -449,7 +449,7 @@ const updateEmployeeRole = () => {
             console.error(err);
           } else {
             console.log('');
-            console.log('The employee\'s role has been updated!');
+            console.log('The employee\'s role has been updated in the company\'s database.');
             console.log('');
             viewEmployees();
           }
