@@ -6,8 +6,9 @@ require('dotenv').config();
 const connection = mysql.createConnection(
   {
     host: 'localhost',
+    port: 3306,
     user: 'root',
-    password: process.env.MYSQL_PASSWORD,
+    password: process.env.DB_PASSWORD,
     database: 'employees_db'
   },
   console.log('Connected to the database'),
@@ -52,46 +53,37 @@ const renderEmployeeMenu = () => {
       switch (response.menu) {
         case 'View All Departments':
           viewDepartments();
-          // works!
           break;
         case 'View All Employees':
           viewEmployees();
-          //works!
           break;
         case 'View All Employees by Department':
           viewEmployeesByDept();
-          //works!
           break;
         case 'View All Roles':
           viewRoles();
-          //works!
           break;
         case 'Add Department':
           addDepartment();
-          //works!
           break;
         case 'Add Employee':
           addEmployee();
-          // super buggy, needs rebuild
           break;
         case 'Add Role':
           addRole();
-          // super buggy, needs rebuild
           break;
         case 'Delete Department':
           deleteDepartment();
-          //works!
           break;
         case 'Delete Employee':
           deleteEmployee();
-          //works!
           break;
         case 'Delete Role':
           deleteRole();
-          //works!
           break;
         case 'Update Employee Role':
           updateEmployeeRole();
+          //last one to debug!!!
           break;
         case 'Exit':
           console.log('Thank you for using the Employee Tracker Database');
@@ -122,7 +114,9 @@ const viewEmployees = () => {
       console.error(err);
     } else {
       console.log('********** EMPLOYEE LIST **********')
+      console.log('');
       console.log(`There are ${res.length} employees in your company`);
+      console.log('');
       console.table(res);
       renderEmployeeMenu();
     }
@@ -181,126 +175,119 @@ const addDepartment = () => {
       if (err) {
         console.error(err);
       } else {
-      console.log(`The ${response.addDept} department has been added to your company`);
-      console.log('');
-      viewDepartments();
+        console.log('');
+        console.log(`The ${response.addDept} department has been added to your company`);
+        console.log('');
+        viewDepartments();
       }
     });
   });
 }
-// buggy needs fixing!
-// const addEmployee = () => {
 
-//   let managers = [];
-//   connection.query('SELECT title, id FROM role;', (err, res) => {
-//     const roles = res.map(({ title, id }) => ({ name: title, value: id }));
-//     connection.query('SELECT CONCAT(manager.first_name, " ", manager.last_name) AS "Manager", manager.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id;', (err, res) => {
-//       res.forEach(manager => {
-//         for (let key in manager) {
-//           managers.push(manager.key);
-//           return managers;
-//         }
-//       });
-//       inquirer.prompt([
-//         {
-//           type: 'input',
-//           message: 'Please enter the new employee\'s first name',
-//           name: 'first_name',
-//           validate: (input) => {
-//             if (!input) {
-//               console.log('Please enter a first name');
-//             } else {
-//               return true;
-//             }
-//           }
-//         },
-//         {
-//           type: 'input',
-//           message: 'Please enter the new employee\'s last name',
-//           name: 'last_name',
-//           validate: (input) => {
-//             if (!input) {
-//             console.log('Please enter a last name');
-//             } else {
-//               return true;
-//             }
-//           }
-//         },
-//         {
-//           type: 'list',
-//           message: 'Please select the new employee\'s role',
-//           name: 'role',
-//           choices: roles
-//         },
-//         {
-//           type: 'list',
-//           message: 'Please select the new employee\'s manager',
-//           name: 'manager',
-//           choices: [...managers, { name: 'No Manager', value: null }]
-//         }
-//       ]).then((response) => {
-//         const params = [response.first_name, response.last_name, response.role, response.manager];
-//         const query = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);';
-//         connection.query(query, params, (err, res) => {
-//           if (err) {
-//             console.error(err);
-//           } else {
-//             console.log(`The employee, ${response.first_name} ${response.last_name}, has been added to the your company`);
-//             console.log('');
-//             viewEmployees();
-//           }
-//         });
-//       });
-//     });
-//   });
-// }
+const addEmployee = () => {
+  const query = 'SELECT role.id, role.title FROM role;';
+  connection.query(query, (err, res) => {
+    const roles = res.map(({ id, title }) => ({ name: title, value: id }));
+    inquirer.prompt([
+      {
+        type: 'input',
+        message: 'Please enter the new employee\'s first name',
+        name: 'first_name',
+        validate: (input) => {
+          if (!input) {
+            console.log('Please enter a first name');
+          } else {
+            return true;
+          }
+        }
+      },
+      {
+        type: 'input',
+        message: 'Please enter the new employee\'s last name',
+        name: 'last_name',
+        validate: (input) => {
+          if (!input) {
+            console.log('Please enter a last name');
+          } else {
+            return true;
+          }
+        }
+      },
+      {
+        type: 'list',
+        message: 'Please select the new employee\'s role',
+        name: 'role',
+        choices: roles
+      }
+    ]).then((response) => {
+      const params = [response.first_name, response.last_name, response.role, null];
+      const query = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);';
+      connection.query(query, params, (err, res) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log('');
+          console.log(`The employee, ${response.first_name} ${response.last_name}, has been added to the your company`);
+          console.log('');
+          viewEmployees();
+        }
+      });
+    });
+  });
+}
 
-// buggy needs fixing!
-// const addRole = () => { 
-//   const query = 'SELECT * FROM department;';
-//   connection.query(query, (err, res) => {
-  
-//     inquirer.prompt([
-//       {
-//         type: 'input',
-//         message: 'What is the name of the new role?',
-//         name: 'title',
-//         validate: (input) => {
-//           if (!input) {
-//             console.log('Please enter a job title');
-//           }
-//         }
-//       },
-//       {
-//         type: 'input',
-//         message: 'What is the salary of the new role?',
-//         name: 'salary',
-//         validate: (input) => {
-//           if (isNaN(input) === true) {
-//             console.log('Please input a number value for the role\'s salary')
-//           }
-//         }
-//       },
-//       {
-//         type: 'list',
-//         message: 'Which department does this role belong to?',
-//         name: 'department',
-//         choices: departmentChoice
-//       }
-//     ]).then((response) => {
-
-//       connection.query(`INSERT INTO role (title, salary, department_id) VALUES ('${response.title}', '${response.salary}', '${response.department.id}');`, (err, res) => {
-//         if (err) {
-//           console.error(err);
-//         } else {
-//         console.log(`The ${response.title} has been added to the ${response.departmentChoice}`);
-//         console.log('');
-//         viewRoles();
-//         }
-//       });
-//     });
-//   });
-// }
+const addRole = () => {
+  const query = 'SELECT department.dept_name, department.id FROM department;';
+  connection.query(query, (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    const departments = res.map(({ dept_name, id }) => ({ name: dept_name, value: id }));
+    inquirer.prompt([
+      {
+        type: 'input',
+        message: 'What is the name of the new role?',
+        name: 'title',
+        validate: (input) => {
+          if (!input) {
+            console.log('Please enter a job title');
+          }
+          return true;
+        }
+      },
+      {
+        type: 'input',
+        message: 'What is the salary of the new role?',
+        name: 'salary',
+        validate: (input) => {
+          if (isNaN(input) === true) {
+            console.log('Please input a number value for the role\'s salary')
+          }
+          return true;
+        }
+      },
+      {
+        type: 'list',
+        message: 'Which department does this role belong to?',
+        name: 'department',
+        choices: departments
+      }
+    ]).then((response) => {
+      const params = [response.title, response.salary, response.department];
+        const query = 'INSERT INTO role (title, salary, department_id) VALUES (?,?,?);';
+        connection.query(query, params, (err, res) => {
+            if (err) {
+              console.error(err);
+            } else {
+              console.log('');
+              console.log(`The ${response.title} has been added to the ${response.department.dept_name}`);
+              console.log('');
+              viewRoles();
+            }
+          });
+        });
+      });
+}
 
 const deleteDepartment = () => {
   const query = 'SELECT * FROM department;';
@@ -309,6 +296,7 @@ const deleteDepartment = () => {
       console.error(err);
     }
     const department = res.map(({ dept_name, id }) => ({ name: dept_name, value: id }));
+    department.push('[CANCEL]');
     inquirer.prompt([
       {
         type: 'list', 
@@ -317,6 +305,7 @@ const deleteDepartment = () => {
         choices: department
       }
     ]).then(response => {
+      if (response.department !== '[CANCEL]') {
         const query = 'DELETE FROM department WHERE id = ?;';
         connection.query(query, response.department, (err, res) => {
           if (err) {
@@ -328,7 +317,13 @@ const deleteDepartment = () => {
             viewDepartments();
           }
         });
-      });
+      } else {
+        console.log('');
+        console.log('Did not delete any departments');
+        console.log('');
+        viewDepartments();
+      }
+    });
   });
 }
 
@@ -339,6 +334,7 @@ const deleteEmployee = () => {
       console.error(err);
     }
     const employees = res.map(({ first_name, last_name, id }) => ({ name: first_name + ' ' + last_name, value: id }));
+    employees.push('[CANCEL]');
     inquirer.prompt([
       {
         type: 'list',
@@ -347,18 +343,24 @@ const deleteEmployee = () => {
         choices: employees
       }
     ]).then((response) => {
-      const query2 = 'DELETE FROM employee WHERE id = ?'
-      connection.query(query2, response.leavingEmployee, (err, res) => {
-        console.log(response);
-        if (err) {
-          console.error(err);
-        } else {
+      if (response.leavingEmployee !== '[CANCEL]') {
+        const query = 'DELETE FROM employee WHERE id = ?'
+        connection.query(query, response.leavingEmployee, (err, res) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log('');
+            console.log(`The ${response.leavingEmployee} has been deleted from the company database`);
+            console.log('');
+            viewEmployees();
+          }
+        });
+      } else {
           console.log('');
-          console.log(`The ${response.leavingEmployee} has been deleted from the company database`);
+          console.log('Did not delete any employees from the database');
           console.log('');
           viewEmployees();
         }
-      });
     });
   });
 }
@@ -370,6 +372,7 @@ const deleteRole = () => {
       console.error(err);
     }
     const roles = res.map(({ title, id }) => ({ name: title, value: id }));
+    roles.push('[CANCEL');
     inquirer.prompt([
       {
         type: 'list',
@@ -378,31 +381,38 @@ const deleteRole = () => {
         choices: roles
       }
     ]).then((response) => {
-      const query = 'DELETE FROM role WHERE id = ?;';
-      connection.query(query,response.role, (err, res) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log('');
-          console.log(`The ${response.role} has been deleted from the company database.`);
-          console.log('Please update any employee who previously held this position.');
-          console.log('');
-        }
-      });
-      const query2 = 'SELECT * FROM employee WHERE employee.role_id IS NULL;';
-      connection.query(query2, (err, res) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log('********** EMPLOYEES MISSING A ROLE **********');
-          console.log('');
-          console.log(`There are ${res.length} employee(s) without a role in the company.`);
-          console.log('');
-          console.table(res);
-          console.log('');
-          renderEmployeeMenu();
-        }
-      });
+      if (response.role !== '[CANCEL]') {
+        const query = 'DELETE FROM role WHERE id = ?;';
+        connection.query(query,response.role, (err, res) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log('');
+            console.log(`The ${response.role} has been deleted from the company database.`);
+            console.log('Please update any employee who previously held this position.');
+            console.log('');
+          }
+        });
+        const query2 = 'SELECT * FROM employee WHERE employee.role_id IS NULL;';
+        connection.query(query2, (err, res) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log('********** EMPLOYEES MISSING A ROLE **********');
+            console.log('');
+            console.log(`There are ${res.length} employee(s) without a role in the company.`);
+            console.log('');
+            console.table(res);
+            console.log('');
+            renderEmployeeMenu();
+          }
+        });
+      } else {
+        console.log('');
+        console.log('Did not delete any roles from the database');
+        console.log('');
+        viewRoles();
+      }
     });
   });
 }
