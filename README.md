@@ -35,6 +35,7 @@ This application is not currently accepting contribution.
 Currently there is no test suite for this application.
 
 ## [Links](#table-of-contents)
+[Github Repository](https://github.com/jacih/Employee-Tracker)
 
 ## [Questions](#table-of-contents)
 Contact me through [GitHub](https://github.com/jacih)
